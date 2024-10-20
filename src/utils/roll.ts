@@ -1,7 +1,7 @@
 import type { RollResultType, RollType } from "../types";
 
 //only 1d10 for now
-export const roll = () => {
+export const rollOnce = () => {
   return Number(Math.random().toString()[2]) + 1;
 };
 
@@ -11,7 +11,7 @@ export const rollMultiple = (rollAmount: number): number[] => {
   }
   let result = [];
   for (let i = 1; i <= rollAmount; i++) {
-    result.push(roll());
+    result.push(rollOnce());
   }
   return result;
 };
@@ -49,5 +49,8 @@ export const checkRollResult = (rawResult: number[], difficulty = 6): RollResult
     isCriticalFailure: !Boolean(successes.length) && Boolean(criticalFails),
     difficulty
   };
+};
 
+export const roll = (diceAmount: number, difficulty = 6): RollResultType => {
+  return checkRollResult(rollMultiple(diceAmount), difficulty);
 };

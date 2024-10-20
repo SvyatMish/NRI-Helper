@@ -1,14 +1,13 @@
 <script lang="ts">
   import Button from "./components/Button.svelte";
-  import { checkRollResult, rollMultiple } from "./utils";
+  import { roll } from "./utils";
   import type { RollResultType } from "./types";
   import RollResult from "./components/RollResult.svelte";
 
   let results: RollResultType[] = [];
 
   const handleRoll = (difficulty: number) => {
-    const result = rollMultiple(5);
-    results = [...results, checkRollResult(result, difficulty)];
+    results = [...results, roll(5, difficulty)];
   };
 
 </script>
