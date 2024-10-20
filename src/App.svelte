@@ -16,6 +16,7 @@
 <main>
   <div class="flex flex-col items-center justify-center">
     <div class="mb-3">
+      <Button onClick={()=>{handleRoll(5)}}>Сложность 5</Button>
       <Button onClick={()=>{handleRoll(6)}}>Сложность 6</Button>
       <Button onClick={()=>{handleRoll(7)}}>Сложность 7</Button>
       <Button onClick={()=>{handleRoll(8)}}>Сложность 8</Button>
