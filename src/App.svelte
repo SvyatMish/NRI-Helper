@@ -3,12 +3,19 @@
   import { roll } from "./utils";
   import type { RollResultType } from "./types";
   import RollResult from "./components/RollResult.svelte";
+  import { Dog, Unit } from "./classes";
 
   let results: RollResultType[] = [];
 
   const handleRoll = (difficulty: number) => {
     results = [...results, roll(5, difficulty)];
   };
+
+  const defaultUnit = new Unit("default");
+  const dog = new Dog();
+
+  console.log(defaultUnit.name, defaultUnit.getStats());
+  console.log(dog.name, dog.getStats());
 
 </script>
 
