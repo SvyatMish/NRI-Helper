@@ -6,7 +6,7 @@ export const rollMultiple = (rollAmount: number): number[] => {
   }
   let random = Math.random().toString();
   const startingIndex = 2;
-  let result: number[] = [];
+  const result: number[] = [];
   let currentIndex = startingIndex;
   for (let i = 0; i < rollAmount; i++) {
     if (!random[currentIndex]) {
@@ -48,7 +48,7 @@ export const checkRollResult = (rawResult: number[], difficulty = 6): RollResult
     finalSuccesses,
     isSuccess: finalSuccesses > 0,
     //not a single success (not even cancelled one) and has at least one critical failure
-    isCriticalFailure: !Boolean(successes.length) && Boolean(criticalFails),
+    isCriticalFailure: !successes.length && Boolean(criticalFails),
     difficulty
   };
 };
