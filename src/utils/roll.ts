@@ -1,23 +1,26 @@
 import type { RollResultType, RollType } from "../types";
 
-//only 1d10 for now
-export const rollOnce = () => {
-  return Number(Math.random().toString()[2]) + 1;
-};
-
 export const rollMultiple = (rollAmount: number): number[] => {
   if (rollAmount < 1) {
     return [];
   }
-  let result = [];
-  for (let i = 1; i <= rollAmount; i++) {
-    result.push(rollOnce());
+  let random = Math.random().toString();
+  const startingIndex = 2;
+  let result: number[] = [];
+  let currentIndex = startingIndex;
+  for (let i = 0; i < rollAmount; i++) {
+    if (!random[currentIndex]) {
+      random = Math.random().toString();
+      currentIndex = startingIndex;
+    }
+    const number = Number(random[currentIndex]) + 1;
+    result.push(number);
+    currentIndex++;
   }
   return result;
 };
 
 export const checkRollResult = (rawResult: number[], difficulty = 6): RollResultType => {
-  rawResult.sort((a, b) => a - b);
   const rolls: RollType[] = rawResult.map((i) => {
     return {
       number: i,
@@ -28,7 +31,6 @@ export const checkRollResult = (rawResult: number[], difficulty = 6): RollResult
   });
   const criticalFails = rolls.filter(i => i.isCriticalFail).length;
   const successes = rolls.filter((i) => i.isSuccess);
-  // successes.sort((a, b) => a.number - b.number);
   if (criticalFails > 0) {
     let successesToCancel = criticalFails;
     for (let i = 0; i < successes.length; i++) {
