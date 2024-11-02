@@ -7,6 +7,7 @@ import "./index.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { RollForm } from "./components/RollForm.tsx";
+import { FormulaList } from "./components/FormulaList.tsx";
 
 const darkTheme = createTheme({
   palette: {
@@ -19,8 +20,9 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <main className="p-6 m-[0_auto]">
+      <main className="p-6 grid grid-cols-[1fr_1fr] gap-8">
         <RollForm />
+        <FormulaList />
       </main>
     </ThemeProvider>
 

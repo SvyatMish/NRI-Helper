@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { RHInput } from "./inputs.tsx";
 import { useState } from "react";
@@ -25,15 +25,16 @@ export const RollForm = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="min-w-full">
+      <Typography className="mb-10" variant="h3">Роличная</Typography>
+      <form className="flex items-end" onSubmit={handleSubmit(onSubmit)}>
         <RHInput name="rollAmount" control={control} label="Сколько роллить" />
         <RHInput name="difficulty" control={control} label="Сложность" />
         <Button type="submit">Ролл</Button>
         <Button onClick={onClear}>Очистить результат</Button>
       </form>
       {results.map((result, index) => <RollResult result={result} key={index} />)}
-    </>
+    </div>
 
   );
 };
