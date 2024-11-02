@@ -1,17 +1,29 @@
-import "./App.css";
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "./index.css";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import { RollForm } from "./components/RollForm.tsx";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark"
+  }
+});
 
 
 function App() {
   return (
-    <main>
-      <RollForm />
-    </main>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <main className="p-6 m-[0_auto]">
+        <RollForm />
+      </main>
+    </ThemeProvider>
+
 
   );
 }
