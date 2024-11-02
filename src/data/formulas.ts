@@ -4,7 +4,7 @@ import { FormulaType } from "../types";
 export const physicalActions: FormulaType[] = [
   {
     name: "Карабканье",
-    text: "Ловкость + Атлетика",
+    text: "Ловкость + Атлетика"
   }
 ];
 
@@ -33,3 +33,5 @@ export const ALL_FORMULAS: Record<string, FormulaType[]> = {
   "Действия в бою": fightActions,
   "Физические действия": physicalActions
 };
+
+export type AllFormulasType = typeof ALL_FORMULAS
