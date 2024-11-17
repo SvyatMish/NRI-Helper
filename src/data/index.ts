@@ -1,1 +1,1 @@
-export * from "./formulas.ts";
+export * from "./formulas";

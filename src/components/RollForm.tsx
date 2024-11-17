@@ -25,15 +25,17 @@ export const RollForm = () => {
   };
 
   return (
-    <div className="min-w-full">
+    <div className="min-w-full p-6 box-border h-screen overflow-hidden flex flex-col">
       <Typography className="mb-10" variant="h3">Роличная</Typography>
-      <form className="flex items-end" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex items-end w-fit" onSubmit={handleSubmit(onSubmit)}>
         <RHInput name="rollAmount" control={control} label="Сколько роллить" />
         <RHInput name="difficulty" control={control} label="Сложность" />
         <Button type="submit">Ролл</Button>
         <Button onClick={onClear}>Очистить результат</Button>
       </form>
-      {results.map((result, index) => <RollResult result={result} key={index} />)}
+      <div className="flex-1 overflow-auto max-w-[640px]">
+        {results.map((result, index) => <RollResult result={result} key={index} />)}
+      </div>
     </div>
 
   );

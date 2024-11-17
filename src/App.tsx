@@ -20,7 +20,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <main className="p-6 grid grid-cols-[1fr_1fr] gap-8">
+      <main className="box-border grid grid-cols-[1fr_1fr] gap-8">
         <RollForm />
         <FormulaList />
       </main>

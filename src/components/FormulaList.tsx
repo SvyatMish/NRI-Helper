@@ -6,7 +6,7 @@ import { Formula } from "./Formula.tsx";
 import { SimpleCollapse } from "./Collapse.tsx";
 
 const List: React.FC<{ formulasObject: AllFormulasType }> = ({ formulasObject }) => {
-  return <div>
+  return <div className="flex-1 overflow-auto">
     {Object.entries(formulasObject).map(([key, formulas]) => (<SimpleCollapse key={key} title={key} initialOpen>
       {formulas.map((formula) => (<Formula formula={formula} key={formula.name} />))}
     </SimpleCollapse>))}
@@ -31,9 +31,11 @@ export const FormulaList = () => {
     setFiltered(newFiltered);
   }, []);
 
-  return <div>
-    <Typography variant="h3" className="mb-10">Библиотека</Typography>
-    <TextField label="Поиск" variant="standard" onChange={handleChange} name="search" />
+  return <div className="p-6 box-border h-screen overflow-hidden flex flex-col">
+    <div>
+      <Typography variant="h3" className="mb-10">Библиотека</Typography>
+      <TextField label="Поиск" variant="standard" onChange={handleChange} name="search" />
+    </div>
     <List formulasObject={filtered || ALL_FORMULAS} />
   </div>;
 };
