@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { VTMapp } from "./apps/VTM/vtm-app";
+import { DNDapp } from "./apps/DND/dnd-app";
 
 const darkTheme = createTheme({
   palette: {
@@ -26,12 +27,14 @@ function App() {
           <Route
             path="/"
             element={
-              <div className="h-screen w-full flex justify-center items-center space-x-2 space-y-2">
+              <div className="h-screen w-full flex justify-center items-center space-x-2">
                 <Link to="/vtm">VTM</Link>
+                <Link to="/dnd">DND</Link>
               </div>
             }
           />
           <Route path="/vtm" element={<VTMapp />} />
+          <Route path="/dnd" element={<DNDapp />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
