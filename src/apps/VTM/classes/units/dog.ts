@@ -6,13 +6,13 @@ export class Dog extends Unit {
       attributes: {
         physical: {
           strength: 4,
-          dexterity: 3
+          dexterity: 3,
         },
         mental: {
           wits: 3,
           intelligence: 1,
-          perception: 5
-        }
+          perception: 5,
+        },
       },
       talents: {
         alertness: 4,
@@ -20,10 +20,10 @@ export class Dog extends Unit {
         brawl: 4,
         evasion: 3,
         empathy: 1,
-        intimidation: 4
+        intimidation: 4,
       },
       skills: { stealth: 2 },
-      disciplines: { potence: 2 }
+      disciplines: { potence: 2 },
     });
   }
 }

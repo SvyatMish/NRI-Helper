@@ -6,8 +6,10 @@ import "./index.css";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { RollForm } from "./components/RollForm.tsx";
-import { FormulaList } from "./components/FormulaList.tsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import { VTMapp } from "./apps/VTM/vtm-app";
 
 const darkTheme = createTheme({
   palette: {
@@ -19,10 +21,19 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <main className="box-border grid grid-cols-[1fr_1fr] gap-8">
-        <RollForm initialValues={{ difficulty: 6 }} />
-        <FormulaList />
-      </main>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="h-screen w-full flex justify-center items-center space-x-2 space-y-2">
+                <Link to="/vtm">VTM</Link>
+              </div>
+            }
+          />
+          <Route path="/vtm" element={<VTMapp />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

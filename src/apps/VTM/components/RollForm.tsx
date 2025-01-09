@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Button, Typography } from "@mui/material";
 
-import { RHInput } from "./inputs.tsx";
+import { RHInput } from "../../../components/inputs.tsx";
 import React, { useState } from "react";
-import { RollResultType } from "../types";
+import { RollResultType } from "../types/index.ts";
 import { RollResult } from "./RollResult.tsx";
-import { roll } from "../utils";
+import { roll } from "../utils/roll.ts";
 
 interface Values {
   rollAmount?: number;

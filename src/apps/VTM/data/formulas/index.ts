@@ -1,4 +1,4 @@
-import { FormulaType } from "../../types";
+import { FormulaType } from "../../types/index.ts";
 
 import { physicalActions } from "./physical.ts";
 import { battleActions } from "./battle.ts";
