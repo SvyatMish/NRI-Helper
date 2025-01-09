@@ -9,16 +9,26 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(express.json());
 
 app.get("/files", async (req, res) => {
   const arr = [];
   const requiredFolder = `${__dirname}/files/${req.query.folder}`;
   fs.readdirSync(requiredFolder).forEach((fileName) => {
     const data = fs.readFileSync(`${requiredFolder}/${fileName}`, "utf8");
-    arr.push({ name: fileName, data: JSON.parse(data) });
+    arr.push({ fileName, data: JSON.parse(data) });
   });
-  console.log("arr", arr);
   res.send(arr);
+});
+
+app.post("/save-file", function (req, res) {
+  const { fileName, folder, data } = req.body;
+  if (!folder || !fileName || !data) {
+    throw new Error("no data retard");
+  }
+  const requiredFolder = `${__dirname}/files/${folder}`;
+  fs.writeFileSync(`${requiredFolder}/${fileName}`, JSON.stringify(data));
+  res.send(req.body);
 });
 
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
