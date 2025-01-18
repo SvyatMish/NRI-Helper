@@ -31,4 +31,8 @@ app.post("/save-file", function (req, res) {
   res.send(req.body);
 });
 
-ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
+const hostPort = 3000;
+
+ViteExpress.listen(app, hostPort, () =>
+  console.log(`Server is listening on http://localhost:${hostPort}`)
+);

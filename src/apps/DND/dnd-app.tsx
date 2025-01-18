@@ -18,7 +18,8 @@ export const DNDapp = () => {
         return (
           <HeroForm
             key={hero.fileName}
-            initialValues={{ name: hero.data.name }}
+            id={hero.fileName}
+            initialValues={hero.data}
           />
         );
       })}
