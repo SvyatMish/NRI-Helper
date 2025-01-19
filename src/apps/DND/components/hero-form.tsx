@@ -6,8 +6,11 @@ import { Character, Attribute } from "../types/characters.ts";
 import { RHInput } from "../../../components/inputs.tsx";
 import { saveFile } from "../../../utils/files.ts";
 import { AttributeInput } from "./attribute-input.tsx";
+import { AttributeSelect } from "./attribute-select.tsx";
+import { AttackBonus, SpellDifficulty } from "./bonus-components.tsx";
 import { getProficiencyBonus } from "../utils/proficiency-bonus.ts";
 import { getCharacterInitialValues } from "../utils";
+import { MaxWeight } from "./max-weight.tsx";
 
 export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   initialValues,
@@ -28,6 +31,8 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   const level = watch("level");
   const skillsProficient = watch("skillsProficient");
   const skillsCompetent = watch("skillsCompetent");
+  const attackAttribute = watch("attackAttribute");
+  const spellAttribute = watch("spellAttribute");
 
   const proficiencyBonus = getProficiencyBonus(level);
 
@@ -39,19 +44,48 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
           <RHInput name="level" control={control} label="Уровень" />
           <div>Бонус владения: +{proficiencyBonus}</div>
         </div>
-        <div className="w-fit">
-          {Object.entries(attributes).map(([key, value]) => (
-            <AttributeInput
-              setValue={setValue}
-              skillsCompetent={skillsCompetent}
-              skillsProficient={skillsProficient}
-              key={key}
-              name={key as Attribute}
-              control={control}
-              value={value}
-              proficiencyBonus={proficiencyBonus}
-            />
-          ))}
+        <div className="flex space-x-3">
+          <div className="w-fit">
+            {Object.entries(attributes).map(([key, value]) => (
+              <AttributeInput
+                setValue={setValue}
+                skillsCompetent={skillsCompetent}
+                skillsProficient={skillsProficient}
+                key={key}
+                name={key as Attribute}
+                control={control}
+                value={value}
+                proficiencyBonus={proficiencyBonus}
+              />
+            ))}
+          </div>
+          <div className="w-fit space-y-4">
+            <div className="flex items-center space-x-2">
+              <AttributeSelect
+                label="Хар. атаки"
+                name="attackAttribute"
+                control={control}
+              />
+              <AttackBonus
+                mainAttribute={attackAttribute}
+                allAttributes={attributes}
+                proficiencyBonus={proficiencyBonus}
+              />
+            </div>
+            <div className="flex items-center space-x-2">
+              <AttributeSelect
+                label="Хар. заклианий"
+                name="spellAttribute"
+                control={control}
+              />
+              <SpellDifficulty
+                mainAttribute={spellAttribute}
+                allAttributes={attributes}
+                proficiencyBonus={proficiencyBonus}
+              />
+            </div>
+            <MaxWeight strength={attributes.strength} />
+          </div>
         </div>
 
         <Button type="submit">Сохранить</Button>

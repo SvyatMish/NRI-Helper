@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import { RHInput } from "../../../components/inputs";
 import { Attribute, Skill, Character } from "../types";
 import { translationMap, attributesSkillMap } from "../maps";
-import { getBonusString } from "../utils";
+import { getBonusString, getAttributeBonus } from "../utils";
 
 interface AttributeProps {
   control: Control<Character>;
@@ -70,7 +70,7 @@ const SkillInput: React.FC<SkillProps> = ({
 };
 
 export const AttributeInput: React.FC<AttributeProps> = (props) => {
-  const rollBonus = (props.value - 10) * 0.5;
+  const rollBonus = getAttributeBonus(props.value);
   return (
     <div className="flex space-x-1 items-center p-3 border">
       <RHInput

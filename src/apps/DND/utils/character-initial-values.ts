@@ -18,5 +18,7 @@ export const getCharacterInitialValues = (
     },
     skillsCompetent: initial.skillsCompetent || [],
     skillsProficient: initial.skillsProficient || [],
+    spellAttribute: initial.spellAttribute || "intelligence",
+    attackAttribute: initial.attackAttribute || "strength",
   };
 };

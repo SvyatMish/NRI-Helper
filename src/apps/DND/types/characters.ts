@@ -31,6 +31,8 @@ export interface Character {
   };
   skillsProficient: Skill[];
   skillsCompetent: Skill[];
+  spellAttribute: Attribute;
+  attackAttribute: Attribute;
 }
 
 export type Attribute = keyof Character["attributes"];
