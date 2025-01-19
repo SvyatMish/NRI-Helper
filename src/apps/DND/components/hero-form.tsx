@@ -33,8 +33,11 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   const skillsCompetent = watch("skillsCompetent");
   const attackAttribute = watch("attackAttribute");
   const spellAttribute = watch("spellAttribute");
+  const hp = watch("hp");
 
   const proficiencyBonus = getProficiencyBonus(level);
+
+  const allHp = +hp.currentHp + +hp.tempHp;
 
   return (
     <div>
@@ -43,6 +46,27 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
           <RHInput name="name" control={control} label="Имя персонажа" />
           <RHInput name="level" control={control} label="Уровень" />
           <div>Бонус владения: +{proficiencyBonus}</div>
+        </div>
+        <div className="grid grid-cols-[60px_60px_60px_60px] items-center">
+          <RHInput
+            type="number"
+            name="hp.currentHp"
+            control={control}
+            label="ОЗ"
+          />
+          <RHInput
+            type="number"
+            name="hp.tempHp"
+            control={control}
+            label="Врем. ОЗ"
+          />
+          <RHInput
+            type="number"
+            name="hp.maxHp"
+            control={control}
+            label="Макс. ОЗ"
+          />
+          {allHp}/{hp.maxHp}
         </div>
         <div className="flex space-x-3">
           <div className="w-fit">
@@ -60,6 +84,12 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
             ))}
           </div>
           <div className="w-fit space-y-4">
+            <RHInput
+              type="number"
+              name="speed"
+              control={control}
+              label="Скорость"
+            />
             <div className="flex items-center space-x-2">
               <AttributeSelect
                 label="Хар. атаки"

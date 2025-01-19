@@ -33,6 +33,12 @@ export interface Character {
   skillsCompetent: Skill[];
   spellAttribute: Attribute;
   attackAttribute: Attribute;
+  hp: {
+    currentHp: number;
+    maxHp: number;
+    tempHp: number;
+  };
+  speed: number;
 }
 
 export type Attribute = keyof Character["attributes"];

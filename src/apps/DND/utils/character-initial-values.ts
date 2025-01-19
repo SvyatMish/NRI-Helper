@@ -20,5 +20,11 @@ export const getCharacterInitialValues = (
     skillsProficient: initial.skillsProficient || [],
     spellAttribute: initial.spellAttribute || "intelligence",
     attackAttribute: initial.attackAttribute || "strength",
+    hp: {
+      maxHp: initial.hp?.maxHp || 0,
+      currentHp: initial.hp?.currentHp || 0,
+      tempHp: initial.hp?.tempHp || 0,
+    },
+    speed: initial.speed || 30,
   };
 };
