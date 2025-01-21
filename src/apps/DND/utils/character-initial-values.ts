@@ -26,5 +26,6 @@ export const getCharacterInitialValues = (
       tempHp: initial.hp?.tempHp || 0,
     },
     speed: initial.speed || 30,
+    AC: initial.AC || 10,
   };
 };

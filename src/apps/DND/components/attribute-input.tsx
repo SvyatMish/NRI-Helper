@@ -74,6 +74,7 @@ export const AttributeInput: React.FC<AttributeProps> = (props) => {
   return (
     <div className="flex space-x-1 items-center p-3 border">
       <RHInput
+        className="max-w-24"
         type="number"
         name={`attributes.${props.name}`}
         control={props.control}

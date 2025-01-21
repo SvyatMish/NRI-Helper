@@ -47,7 +47,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
           <RHInput name="level" control={control} label="Уровень" />
           <div>Бонус владения: +{proficiencyBonus}</div>
         </div>
-        <div className="grid grid-cols-[60px_60px_60px_60px] items-center">
+        <div className="grid grid-cols-[60px_60px_60px_60px_60px] items-center">
           <RHInput
             type="number"
             name="hp.currentHp"
@@ -67,6 +67,12 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
             label="Макс. ОЗ"
           />
           {allHp}/{hp.maxHp}
+          <RHInput
+            type="number"
+            name="AC"
+            control={control}
+            label="КБ"
+          />
         </div>
         <div className="flex space-x-3">
           <div className="w-fit">

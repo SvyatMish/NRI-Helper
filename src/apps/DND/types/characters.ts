@@ -39,6 +39,7 @@ export interface Character {
     tempHp: number;
   };
   speed: number;
+  AC: number;
 }
 
 export type Attribute = keyof Character["attributes"];
