@@ -40,6 +40,7 @@ export interface Character {
   };
   speed: number;
   AC: number;
+  money: number;
 }
 
 export type Attribute = keyof Character["attributes"];

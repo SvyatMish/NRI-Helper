@@ -11,6 +11,7 @@ import { AttackBonus, SpellDifficulty } from "./bonus-components.tsx";
 import { getProficiencyBonus } from "../utils/proficiency-bonus.ts";
 import { getCharacterInitialValues } from "../utils";
 import { MaxWeight } from "./max-weight.tsx";
+import { MoneyWidget } from "./money-widget.tsx";
 
 export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   initialValues,
@@ -34,6 +35,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   const attackAttribute = watch("attackAttribute");
   const spellAttribute = watch("spellAttribute");
   const hp = watch("hp");
+  const money = watch("money");
 
   const proficiencyBonus = getProficiencyBonus(level);
 
@@ -67,12 +69,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
             label="Макс. ОЗ"
           />
           {allHp}/{hp.maxHp}
-          <RHInput
-            type="number"
-            name="AC"
-            control={control}
-            label="КБ"
-          />
+          <RHInput type="number" name="AC" control={control} label="КБ" />
         </div>
         <div className="flex space-x-3">
           <div className="w-fit">
@@ -90,13 +87,14 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
             ))}
           </div>
           <div className="w-fit space-y-4">
+            <MoneyWidget amount={money} setMainValue={setValue} />
             <RHInput
               type="number"
               name="speed"
               control={control}
               label="Скорость"
             />
-            <div className="flex items-center space-x-2">
+            <div className="flex items-end space-x-2">
               <AttributeSelect
                 label="Хар. атаки"
                 name="attackAttribute"
@@ -108,7 +106,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
                 proficiencyBonus={proficiencyBonus}
               />
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-end space-x-2">
               <AttributeSelect
                 label="Хар. заклианий"
                 name="spellAttribute"
@@ -123,7 +121,6 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
             <MaxWeight strength={attributes.strength} />
           </div>
         </div>
-
         <Button type="submit">Сохранить</Button>
       </form>
     </div>

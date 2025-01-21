@@ -27,5 +27,6 @@ export const getCharacterInitialValues = (
     },
     speed: initial.speed || 30,
     AC: initial.AC || 10,
+    money: initial.money || 0,
   };
 };
