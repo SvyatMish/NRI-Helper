@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { getFiles } from "../../utils";
+import { getFiles, changeFavicon } from "../../utils";
 import { HeroForm } from "./components/hero-form";
+
+const setupHeader = () => {
+  document.title = "DND helper";
+  changeFavicon("/Dice_d20.svg");
+};
 
 export const DNDapp = () => {
   const [heroes, setHeroes] = useState<{ fileName: string; data: any }[]>([]);
@@ -10,6 +15,7 @@ export const DNDapp = () => {
     setHeroes(response);
   };
   useEffect(() => {
+    setupHeader();
     getHeroes();
   }, []);
   return (
