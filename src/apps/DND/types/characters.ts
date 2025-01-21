@@ -33,6 +33,7 @@ export interface Character {
   skillsCompetent: Skill[];
   spellAttribute: Attribute;
   attackAttribute: Attribute;
+  savingThrowsProfficient: Attribute[];
   hp: {
     currentHp: number;
     maxHp: number;

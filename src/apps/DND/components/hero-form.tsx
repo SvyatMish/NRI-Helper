@@ -36,6 +36,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   const spellAttribute = watch("spellAttribute");
   const hp = watch("hp");
   const money = watch("money");
+  const savingThrowsProfficient = watch("savingThrowsProfficient");
 
   const proficiencyBonus = getProficiencyBonus(level);
 
@@ -75,14 +76,15 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
           <div className="w-fit">
             {Object.entries(attributes).map(([key, value]) => (
               <AttributeInput
-                setValue={setValue}
-                skillsCompetent={skillsCompetent}
-                skillsProficient={skillsProficient}
                 key={key}
                 name={key as Attribute}
                 control={control}
                 value={value}
                 proficiencyBonus={proficiencyBonus}
+                setValue={setValue}
+                skillsCompetent={skillsCompetent}
+                skillsProficient={skillsProficient}
+                savingThrowsProfficient={savingThrowsProfficient}
               />
             ))}
           </div>

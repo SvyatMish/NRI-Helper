@@ -11,14 +11,22 @@ interface AttributeProps {
   control: Control<Character>;
   name: Attribute;
   value: number;
-  skillsCompetent: Skill[];
-  skillsProficient: Skill[];
+  skillsCompetent: Character["skillsCompetent"];
+  skillsProficient: Character["skillsProficient"];
+  savingThrowsProfficient: Character["savingThrowsProfficient"];
   proficiencyBonus: number;
   setValue: UseFormSetValue<Character>;
 }
 
+const CompetentIcon = () => <>&#9733;</>;
+const ProficientIcon = () => <>&#9737;</>;
+const NotProficientIcon = () => <>&#9744;</>;
+
 interface SkillProps
-  extends Omit<AttributeProps, "name" | "control" | "value"> {
+  extends Omit<
+    AttributeProps,
+    "name" | "control" | "value" | "savingThrowsProfficient"
+  > {
   name: Skill;
   attributeBonus: number;
 }
@@ -37,11 +45,11 @@ const SkillInput: React.FC<SkillProps> = ({
     (isCompetent ? proficiencyBonus * 2 : isProficient ? proficiencyBonus : 0) +
     attributeBonus;
   const proficiencySymbol = isCompetent ? (
-    <>&#9733;</>
+    <CompetentIcon />
   ) : isProficient ? (
-    <>&#9737;</>
+    <ProficientIcon />
   ) : (
-    <>&#9744;</>
+    <NotProficientIcon />
   );
   const onClick = () => {
     if (isCompetent) {
@@ -71,17 +79,52 @@ const SkillInput: React.FC<SkillProps> = ({
 
 export const AttributeInput: React.FC<AttributeProps> = (props) => {
   const rollBonus = getAttributeBonus(props.value);
+  const isSvaingThrowProficient = props.savingThrowsProfficient.includes(
+    props.name
+  );
+  const onClickSavingThrow = () => {
+    if (isSvaingThrowProficient) {
+      props.setValue(
+        "savingThrowsProfficient",
+        props.savingThrowsProfficient.filter((item) => item !== props.name)
+      );
+    } else {
+      props.setValue("savingThrowsProfficient", [
+        ...props.savingThrowsProfficient,
+        props.name,
+      ]);
+    }
+  };
+  const savingThrowBonus = isSvaingThrowProficient
+    ? rollBonus + props.proficiencyBonus
+    : rollBonus;
   return (
     <div className="flex space-x-1 items-center p-3 border">
-      <RHInput
-        className="max-w-24"
-        type="number"
-        name={`attributes.${props.name}`}
-        control={props.control}
-        label={translationMap[props.name]}
-      />
+      <div className="space-y-2">
+        <div className="flex w-full justify-between items-end">
+          <RHInput
+            className="max-w-24"
+            type="number"
+            name={`attributes.${props.name}`}
+            control={props.control}
+            label={translationMap[props.name]}
+          />
+          <div>{getBonusString(rollBonus)}</div>
+        </div>
+
+        <div className="flex justify-between w-full">
+          <Button className="p-0 w-3" onClick={onClickSavingThrow}>
+            {isSvaingThrowProficient ? (
+              <ProficientIcon />
+            ) : (
+              <NotProficientIcon />
+            )}
+          </Button>
+          Спасбросок: {getBonusString(savingThrowBonus)}
+        </div>
+      </div>
+
       <div className="flex space-x-3 items-center">
-        <div>{getBonusString(rollBonus)}</div>
         <div className="space-y-1">
           {attributesSkillMap[props.name].map((item) => (
             <SkillInput
