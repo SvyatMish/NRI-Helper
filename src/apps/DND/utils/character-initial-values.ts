@@ -29,5 +29,6 @@ export const getCharacterInitialValues = (
     AC: initial.AC || 10,
     money: initial.money || 0,
     savingThrowsProfficient: initial.savingThrowsProfficient || [],
+    attacks: initial.attacks || [],
   };
 };

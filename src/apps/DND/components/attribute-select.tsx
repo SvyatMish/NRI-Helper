@@ -1,8 +1,7 @@
 import React from "react";
-import { Control } from "react-hook-form";
 import { MenuItem, InputLabel } from "@mui/material";
 
-import { Character, Attribute } from "../types";
+import { Attribute, CharControl } from "../types";
 import { RHSelect } from "../../../components/inputs";
 import { getCharacterInitialValues } from "../utils";
 import { translationMap } from "../maps";
@@ -10,7 +9,7 @@ import { translationMap } from "../maps";
 const allAtrributes = Object.keys(getCharacterInitialValues({}).attributes);
 
 export const AttributeSelect: React.FC<{
-  control: Control<Character>;
+  control: CharControl;
   name: string;
   label: string;
 }> = ({ control, name, label }) => {

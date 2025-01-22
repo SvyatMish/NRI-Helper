@@ -1,3 +1,5 @@
+import { UseFormSetValue, Control } from "react-hook-form";
+
 export type Skill =
   | "acrobatics"
   | "animal handling"
@@ -18,6 +20,11 @@ export type Skill =
   | "stealth"
   | "survival";
 
+export interface Attack {
+  name: string;
+  damage: string;
+  attribute: Attribute;
+}
 export interface Character {
   name: string;
   level: number;
@@ -42,6 +49,9 @@ export interface Character {
   speed: number;
   AC: number;
   money: number;
+  attacks: Attack[];
 }
 
 export type Attribute = keyof Character["attributes"];
+export type SetCharValue = UseFormSetValue<Character>;
+export type CharControl = Control<Character>;

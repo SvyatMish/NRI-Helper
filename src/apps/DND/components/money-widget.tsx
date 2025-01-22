@@ -1,7 +1,7 @@
-import { UseFormSetValue, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 
-import { Character } from "../types";
+import { SetCharValue } from "../types";
 import { RHInput } from "../../../components/inputs";
 
 interface MoneyValues {
@@ -12,7 +12,7 @@ interface MoneyValues {
 
 export const MoneyWidget: React.FC<{
   amount: number;
-  setMainValue: UseFormSetValue<Character>;
+  setMainValue: SetCharValue;
 }> = ({ amount, setMainValue }) => {
   const { control, getValues } = useForm<MoneyValues>({
     defaultValues: {

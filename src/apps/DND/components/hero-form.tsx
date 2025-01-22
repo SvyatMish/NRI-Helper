@@ -7,11 +7,12 @@ import { RHInput } from "../../../components/inputs.tsx";
 import { saveFile } from "../../../utils/files.ts";
 import { AttributeInput } from "./attribute-input.tsx";
 import { AttributeSelect } from "./attribute-select.tsx";
-import { AttackBonus, SpellDifficulty } from "./bonus-components.tsx";
+import { SpellDifficulty } from "./bonus-components.tsx";
 import { getProficiencyBonus } from "../utils/proficiency-bonus.ts";
-import { getCharacterInitialValues } from "../utils";
+import { getCharacterInitialValues, getAttributeBonus } from "../utils";
 import { MaxWeight } from "./max-weight.tsx";
 import { MoneyWidget } from "./money-widget.tsx";
+import { AttacksBlock } from "./attacks-block.tsx";
 
 export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   initialValues,
@@ -37,8 +38,24 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   const hp = watch("hp");
   const money = watch("money");
   const savingThrowsProfficient = watch("savingThrowsProfficient");
+  const attacks = watch("attacks");
 
   const proficiencyBonus = getProficiencyBonus(level);
+
+  const getAttackBonus = (attribute?: Attribute) => {
+    if (!attribute) {
+      return { attack: 0, damage: 0 };
+    }
+    const attrValue = attributes[attribute];
+    const attrBonus = +getAttributeBonus(attrValue);
+    let attackBonus = 0;
+    if (attackAttribute === attribute) {
+      attackBonus = attrBonus + +proficiencyBonus;
+    } else {
+      attackBonus = attrBonus;
+    }
+    return { attack: attackBonus, damage: attrBonus };
+  };
 
   const allHp = +hp.currentHp + +hp.tempHp;
 
@@ -88,7 +105,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
               />
             ))}
           </div>
-          <div className="w-fit space-y-4">
+          <div className="w-fit space-y-4 h-fit">
             <MoneyWidget amount={money} setMainValue={setValue} />
             <RHInput
               type="number"
@@ -102,11 +119,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
                 name="attackAttribute"
                 control={control}
               />
-              <AttackBonus
-                mainAttribute={attackAttribute}
-                allAttributes={attributes}
-                proficiencyBonus={proficiencyBonus}
-              />
+              <div>Атака +{getAttackBonus(attackAttribute).attack}</div>
             </div>
             <div className="flex items-end space-x-2">
               <AttributeSelect
@@ -121,6 +134,12 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
               />
             </div>
             <MaxWeight strength={attributes.strength} />
+            <AttacksBlock
+              attacks={attacks}
+              getAttackBonus={getAttackBonus}
+              setValue={setValue}
+              control={control}
+            />
           </div>
         </div>
         <Button type="submit">Сохранить</Button>

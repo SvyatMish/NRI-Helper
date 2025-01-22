@@ -1,21 +1,26 @@
 import React from "react";
-import { Control, UseFormSetValue } from "react-hook-form";
 import { Button } from "@mui/material";
 
 import { RHInput } from "../../../components/inputs";
-import { Attribute, Skill, Character } from "../types";
+import {
+  Attribute,
+  Skill,
+  Character,
+  SetCharValue,
+  CharControl,
+} from "../types";
 import { translationMap, attributesSkillMap } from "../maps";
 import { getBonusString, getAttributeBonus } from "../utils";
 
 interface AttributeProps {
-  control: Control<Character>;
+  control: CharControl;
   name: Attribute;
   value: number;
   skillsCompetent: Character["skillsCompetent"];
   skillsProficient: Character["skillsProficient"];
   savingThrowsProfficient: Character["savingThrowsProfficient"];
   proficiencyBonus: number;
-  setValue: UseFormSetValue<Character>;
+  setValue: SetCharValue;
 }
 
 const CompetentIcon = () => <>&#9733;</>;
