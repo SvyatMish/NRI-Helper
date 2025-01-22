@@ -26,20 +26,17 @@ export const AttacksBlock: React.FC<{
       {fields.map((attack, index) => {
         const name = `attacks.${index}`;
         return (
-          <div key={attack.name} className="flex items-center">
-            <div className="flex items-end">
-              <RHInput
-                label="Название"
-                control={control}
-                name={`${name}.name`}
-              />
-              <RHInput label="Урон" control={control} name={`${name}.damage`} />
-              <AttributeSelect
-                label="Хар."
-                control={control}
-                name={`${name}.attribute`}
-              />
-            </div>
+          <div
+            key={attack.name}
+            className="grid grid-cols-[200px_50px_150px_70px_64px] items-end"
+          >
+            <RHInput label="Название" control={control} name={`${name}.name`} />
+            <RHInput label="Урон" control={control} name={`${name}.damage`} />
+            <AttributeSelect
+              label="Хар."
+              control={control}
+              name={`${name}.attribute`}
+            />
             <div className="flex flex-col">
               <div>
                 {getBonusString(
@@ -64,7 +61,11 @@ export const AttacksBlock: React.FC<{
           </div>
         );
       })}
-      <Button onClick={add}>+</Button>
+      <div className="flex justify-end">
+        <Button className="justify-self-end" onClick={add}>
+          +
+        </Button>
+      </div>
     </div>
   );
 };
