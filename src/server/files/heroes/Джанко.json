@@ -13,7 +13,7 @@
   "skillsProficient": ["athletics", "acrobatics", "animal handling", "insight"],
   "spellAttribute": "charisma",
   "attackAttribute": "strength",
-  "hp": { "maxHp": "20", "currentHp": "15", "tempHp": "2" },
+  "hp": { "maxHp": "20", "currentHp": "20", "tempHp": "2" },
   "speed": "35",
   "AC": "13",
   "money": 64503,

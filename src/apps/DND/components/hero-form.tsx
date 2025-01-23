@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Modal } from "@mui/material";
 
 import { Character, Attribute } from "../types/characters.ts";
 import { RHInput } from "../../../components/inputs.tsx";
@@ -19,6 +19,7 @@ export const HeroForm: React.FC<{
   id: string;
   minified: boolean;
 }> = ({ initialValues, id, minified }) => {
+  const [isOpen, setIsOpen] = useState(!minified);
   const { control, handleSubmit, watch, setValue } = useForm<Character>({
     defaultValues: getCharacterInitialValues(initialValues || {}),
   });
@@ -61,13 +62,24 @@ export const HeroForm: React.FC<{
   };
 
   const allHp = +hp.currentHp + +hp.tempHp;
-  if (minified) {
+  if (!isOpen) {
     return (
       <form
         className="p-3 rounded border w-fit min-w-[400px] space-y-3"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Typography variant="h6">{name}</Typography>
+        <div className="flex justify-between">
+          <Typography variant="h6">{name}</Typography>
+          <Button
+            onClick={() => {
+              setIsOpen(true);
+            }}
+            type="button"
+          >
+            Рзавенуть
+          </Button>
+        </div>
+
         <HpBlock control={control} allHp={allHp} maxHp={hp.maxHp} />
         <AttacksBlock
           attacks={attacks}
@@ -83,8 +95,16 @@ export const HeroForm: React.FC<{
   }
 
   return (
-    <div>
-      <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
+    <Modal
+      open={isOpen}
+      onClose={() => {
+        setIsOpen(false);
+      }}
+    >
+      <form
+        className="space-y-2 fixed top-2/4 left-2/4 translate-x-[-50%] translate-y-[-50%] w-[95vw] h-[95vh] overflow-auto p-3 rounded border"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex items-end space-x-5">
           <div className="space-y-4">
             <div className="flex space-x-1 items-center">
@@ -156,6 +176,6 @@ export const HeroForm: React.FC<{
           </div>
         </div>
       </form>
-    </div>
+    </Modal>
   );
 };
