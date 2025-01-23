@@ -18,7 +18,7 @@ export const AttacksBlock: React.FC<{
     control,
   });
   const add = () => {
-    append({ name: "Новая атака", damage: "0", attribute: "strength" });
+    append({ name: "", damage: "", attribute: undefined });
   };
 
   if (minified) {
@@ -28,7 +28,7 @@ export const AttacksBlock: React.FC<{
           <div key={attack.name}>
             {attack.name}: {attack.damage}{" "}
             {getBonusString(getAttackBonus(attacks[index].attribute).damage)},{" "}
-            атака
+            атака{" "}
             {getBonusString(getAttackBonus(attacks[index].attribute).attack)}
           </div>
         ))}
@@ -56,13 +56,13 @@ export const AttacksBlock: React.FC<{
             <div className="flex flex-col">
               <div>
                 {getBonusString(
-                  getAttackBonus(attacks[index].attribute).damage
+                  getAttackBonus(attacks[index]?.attribute)?.damage
                 )}{" "}
                 урон
               </div>
               <div>
                 {getBonusString(
-                  getAttackBonus(attacks[index].attribute).attack
+                  getAttackBonus(attacks[index]?.attribute)?.attack
                 )}{" "}
                 атака
               </div>

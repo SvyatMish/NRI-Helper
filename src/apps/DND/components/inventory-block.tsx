@@ -19,7 +19,7 @@ export const InventoryBlock: React.FC<{
     control,
   });
   const add = () => {
-    append({ name: "Новый предмет", weightInPounds: undefined });
+    append({ name: "", weightInPounds: undefined });
   };
 
   const gold = Math.floor(money / 100);
