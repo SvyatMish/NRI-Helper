@@ -10,9 +10,9 @@ import { AttributeSelect } from "./attribute-select.tsx";
 import { SpellDifficulty } from "./bonus-components.tsx";
 import { getProficiencyBonus } from "../utils/proficiency-bonus.ts";
 import { getCharacterInitialValues, getAttributeBonus } from "../utils";
-import { MaxWeight } from "./max-weight.tsx";
 import { MoneyWidget } from "./money-widget.tsx";
 import { AttacksBlock } from "./attacks-block.tsx";
+import { InventoryBlock } from "./inventory-block.tsx";
 
 export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   initialValues,
@@ -39,6 +39,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   const money = watch("money");
   const savingThrowsProfficient = watch("savingThrowsProfficient");
   const attacks = watch("attacks");
+  const inventory = watch("inventory");
 
   const proficiencyBonus = getProficiencyBonus(level);
 
@@ -133,12 +134,15 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
                 proficiencyBonus={proficiencyBonus}
               />
             </div>
-            <MaxWeight strength={attributes.strength} />
             <AttacksBlock
               attacks={attacks}
               getAttackBonus={getAttackBonus}
-              setValue={setValue}
               control={control}
+            />
+            <InventoryBlock
+              inventory={inventory}
+              control={control}
+              strength={attributes.strength}
             />
           </div>
         </div>

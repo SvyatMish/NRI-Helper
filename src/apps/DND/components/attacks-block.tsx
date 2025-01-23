@@ -1,14 +1,13 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useFieldArray } from "react-hook-form";
 
-import { Character, Attribute, SetCharValue, CharControl } from "../types";
+import { Character, Attribute, CharControl } from "../types";
 import { AttributeSelect } from "./attribute-select";
 import { RHInput } from "../../../components/inputs";
 import { getBonusString } from "../utils";
 
 export const AttacksBlock: React.FC<{
-  setValue: SetCharValue;
   getAttackBonus(a: Attribute): { attack: number; damage: number };
   attacks: Character["attacks"];
   control: CharControl;
@@ -23,6 +22,7 @@ export const AttacksBlock: React.FC<{
 
   return (
     <div className="p-3 border h-fit space-y-2">
+      <Typography variant="h4">Атаки</Typography>
       {fields.map((attack, index) => {
         const name = `attacks.${index}`;
         return (

@@ -25,6 +25,11 @@ export interface Attack {
   damage: string;
   attribute: Attribute;
 }
+
+export interface InventoryItem {
+  name: string;
+  weightInPounds?: number;
+}
 export interface Character {
   name: string;
   level: number;
@@ -50,6 +55,7 @@ export interface Character {
   AC: number;
   money: number;
   attacks: Attack[];
+  inventory: InventoryItem[];
 }
 
 export type Attribute = keyof Character["attributes"];
