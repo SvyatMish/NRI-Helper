@@ -62,33 +62,39 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   return (
     <div>
       <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex space-x-1 items-center">
-          <RHInput name="name" control={control} label="Имя персонажа" />
-          <RHInput name="level" control={control} label="Уровень" />
-          <div>Бонус владения: +{proficiencyBonus}</div>
+        <div className="flex items-end space-x-5">
+          <div className="space-y-4">
+            <div className="flex space-x-1 items-center">
+              <RHInput name="name" control={control} label="Имя персонажа" />
+              <RHInput name="level" control={control} label="Уровень" />
+              <div>Бонус владения: +{proficiencyBonus}</div>
+            </div>
+            <div className="grid grid-cols-[60px_60px_60px_60px_60px] items-center">
+              <RHInput
+                type="number"
+                name="hp.currentHp"
+                control={control}
+                label="ОЗ"
+              />
+              <RHInput
+                type="number"
+                name="hp.tempHp"
+                control={control}
+                label="Врем. ОЗ"
+              />
+              <RHInput
+                type="number"
+                name="hp.maxHp"
+                control={control}
+                label="Макс. ОЗ"
+              />
+              {allHp}/{hp.maxHp}
+              <RHInput type="number" name="AC" control={control} label="КБ" />
+            </div>
+          </div>
+          <Button type="submit">Сохранить</Button>
         </div>
-        <div className="grid grid-cols-[60px_60px_60px_60px_60px] items-center">
-          <RHInput
-            type="number"
-            name="hp.currentHp"
-            control={control}
-            label="ОЗ"
-          />
-          <RHInput
-            type="number"
-            name="hp.tempHp"
-            control={control}
-            label="Врем. ОЗ"
-          />
-          <RHInput
-            type="number"
-            name="hp.maxHp"
-            control={control}
-            label="Макс. ОЗ"
-          />
-          {allHp}/{hp.maxHp}
-          <RHInput type="number" name="AC" control={control} label="КБ" />
-        </div>
+
         <div className="flex space-x-3">
           <div className="w-fit">
             {Object.entries(attributes).map(([key, value]) => (
@@ -146,7 +152,6 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
             />
           </div>
         </div>
-        <Button type="submit">Сохранить</Button>
       </form>
     </div>
   );
