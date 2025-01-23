@@ -10,7 +10,6 @@ import { AttributeSelect } from "./attribute-select.tsx";
 import { SpellDifficulty } from "./bonus-components.tsx";
 import { getProficiencyBonus } from "../utils/proficiency-bonus.ts";
 import { getCharacterInitialValues, getAttributeBonus } from "../utils";
-import { MoneyWidget } from "./money-widget.tsx";
 import { AttacksBlock } from "./attacks-block.tsx";
 import { InventoryBlock } from "./inventory-block.tsx";
 
@@ -107,7 +106,6 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
             ))}
           </div>
           <div className="w-fit space-y-4 h-fit">
-            <MoneyWidget amount={money} setMainValue={setValue} />
             <RHInput
               type="number"
               name="speed"
@@ -140,6 +138,8 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
               control={control}
             />
             <InventoryBlock
+              setValue={setValue}
+              money={money}
               inventory={inventory}
               control={control}
               strength={attributes.strength}

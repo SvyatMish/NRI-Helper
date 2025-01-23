@@ -21,12 +21,6 @@ export const MoneyWidget: React.FC<{
       bronze: undefined,
     },
   });
-  const gold = Math.floor(amount / 100);
-  const goldRemainder = amount % 100;
-  const silverArray = (goldRemainder / 10).toString().split(".");
-  const silver = silverArray[0] || 0;
-  const bronze = silverArray[1] || 0;
-
   const getAmount = () => {
     const values = getValues();
     const gold = +(values.gold || 0) * 100;
@@ -48,7 +42,6 @@ export const MoneyWidget: React.FC<{
   };
   return (
     <div>
-      Золото: {gold}, Серебро: {silver}, Бронза: {bronze}
       <form className="grid grid-cols-[90px_90px_90px_90px] items-end">
         <RHInput type="number" name="gold" control={control} label="Золото" />
         <RHInput
