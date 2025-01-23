@@ -12,9 +12,16 @@ import { Link } from "react-router-dom";
 import { VTMapp } from "./apps/VTM/vtm-app";
 import { DNDapp } from "./apps/DND/dnd-app";
 
+// main: "#3d392f",
+
 const darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    background: {
+      default: "#dbd6d5",
+    },
+    text: {
+      primary: "#3b3534",
+    },
   },
 });
 

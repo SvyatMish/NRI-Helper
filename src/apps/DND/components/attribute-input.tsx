@@ -104,7 +104,7 @@ export const AttributeInput: React.FC<AttributeProps> = (props) => {
     ? rollBonus + props.proficiencyBonus
     : rollBonus;
   return (
-    <div className="flex space-x-1 items-center p-3 border">
+    <div className="flex space-x-1 items-center p-3 border border-[#3b3534]">
       <div className="space-y-2">
         <div className="flex w-full justify-between items-end">
           <RHInput

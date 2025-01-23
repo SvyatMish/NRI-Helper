@@ -52,7 +52,7 @@ export const InventoryBlock: React.FC<{
   }, [money, JSON.stringify(inventory), gold, silver, bronze]);
 
   return (
-    <div className="p-3 border h-fit space-y-2">
+    <div className="p-3 border h-fit space-y-2 border-[#3b3534]">
       <Typography variant="h4">Инвентарь</Typography>
       <div>
         Макс вес: {maxWeight.kg} кг, {maxWeight.punds} фунты

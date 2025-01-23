@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { getFiles, changeFavicon } from "../../utils";
-import { HeroForm } from "./components/hero-form";
+import { changeFavicon } from "../../utils";
+import { BattalePage } from "./pages/battale-page";
 
 const setupHeader = () => {
   document.title = "DND helper";
@@ -9,27 +9,8 @@ const setupHeader = () => {
 };
 
 export const DNDapp = () => {
-  const [heroes, setHeroes] = useState<{ fileName: string; data: any }[]>([]);
-  const getHeroes = async () => {
-    const response = await getFiles("heroes");
-    setHeroes(response);
-  };
   useEffect(() => {
     setupHeader();
-    getHeroes();
   }, []);
-  return (
-    <div>
-      {heroes.map((hero) => {
-        return (
-          <HeroForm
-            minified
-            key={hero.fileName}
-            id={hero.fileName}
-            initialValues={hero.data}
-          />
-        );
-      })}
-    </div>
-  );
+  return <BattalePage />;
 };

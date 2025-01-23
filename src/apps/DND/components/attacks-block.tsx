@@ -37,7 +37,7 @@ export const AttacksBlock: React.FC<{
   }
 
   return (
-    <div className="p-3 border h-fit space-y-2">
+    <div className="p-3 border h-fit space-y-2 border-[#3b3534]">
       <Typography variant="h4">Атаки</Typography>
       {fields.map((attack, index) => {
         const name = `attacks.${index}`;

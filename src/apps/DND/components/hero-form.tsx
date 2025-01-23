@@ -65,7 +65,7 @@ export const HeroForm: React.FC<{
   if (!isOpen) {
     return (
       <form
-        className="p-3 rounded border w-fit min-w-[400px] space-y-3"
+        className="p-3 rounded border w-fit min-w-[400px] space-y-3 border-[#3b3534]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex justify-between">
@@ -97,12 +97,13 @@ export const HeroForm: React.FC<{
   return (
     <Modal
       open={isOpen}
+      style={{ backdropFilter: "blur(5px)" }}
       onClose={() => {
         setIsOpen(false);
       }}
     >
       <form
-        className="space-y-2 fixed top-2/4 left-2/4 translate-x-[-50%] translate-y-[-50%] w-[95vw] h-[95vh] overflow-auto p-3 rounded border"
+        className="bg-[#dbd6d5] space-y-2 fixed top-2/4 left-2/4 translate-x-[-50%] translate-y-[-50%] w-[95vw] h-[95vh] overflow-auto p-3 rounded border border-[#3b3534]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex items-end space-x-5">
