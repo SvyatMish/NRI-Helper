@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { Character, Attribute } from "../types/characters.ts";
 import { RHInput } from "../../../components/inputs.tsx";
@@ -12,11 +12,13 @@ import { getProficiencyBonus } from "../utils/proficiency-bonus.ts";
 import { getCharacterInitialValues, getAttributeBonus } from "../utils";
 import { AttacksBlock } from "./attacks-block.tsx";
 import { InventoryBlock } from "./inventory-block.tsx";
+import { HpBlock } from "./hp-block.tsx";
 
-export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
-  initialValues,
-  id,
-}) => {
+export const HeroForm: React.FC<{
+  initialValues?: Character;
+  id: string;
+  minified: boolean;
+}> = ({ initialValues, id, minified }) => {
   const { control, handleSubmit, watch, setValue } = useForm<Character>({
     defaultValues: getCharacterInitialValues(initialValues || {}),
   });
@@ -28,6 +30,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
     await saveFile({ fileName: id, folder: "heroes", data });
   };
 
+  const name = watch("name");
   const attributes = watch("attributes");
   const level = watch("level");
   const skillsProficient = watch("skillsProficient");
@@ -58,6 +61,26 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
   };
 
   const allHp = +hp.currentHp + +hp.tempHp;
+  if (minified) {
+    return (
+      <form
+        className="p-3 rounded border w-fit min-w-[400px] space-y-3"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Typography variant="h6">{name}</Typography>
+        <HpBlock control={control} allHp={allHp} maxHp={hp.maxHp} />
+        <AttacksBlock
+          attacks={attacks}
+          getAttackBonus={getAttackBonus}
+          control={control}
+          minified
+        />
+        <div className="flex justify-end">
+          <Button type="submit">Сохранить</Button>
+        </div>
+      </form>
+    );
+  }
 
   return (
     <div>
@@ -69,28 +92,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
               <RHInput name="level" control={control} label="Уровень" />
               <div>Бонус владения: +{proficiencyBonus}</div>
             </div>
-            <div className="grid grid-cols-[60px_60px_60px_60px_60px] items-center">
-              <RHInput
-                type="number"
-                name="hp.currentHp"
-                control={control}
-                label="ОЗ"
-              />
-              <RHInput
-                type="number"
-                name="hp.tempHp"
-                control={control}
-                label="Врем. ОЗ"
-              />
-              <RHInput
-                type="number"
-                name="hp.maxHp"
-                control={control}
-                label="Макс. ОЗ"
-              />
-              {allHp}/{hp.maxHp}
-              <RHInput type="number" name="AC" control={control} label="КБ" />
-            </div>
+            <HpBlock control={control} allHp={allHp} maxHp={hp.maxHp} />
           </div>
           <Button type="submit">Сохранить</Button>
         </div>
@@ -142,6 +144,7 @@ export const HeroForm: React.FC<{ initialValues?: Character; id: string }> = ({
               attacks={attacks}
               getAttackBonus={getAttackBonus}
               control={control}
+              minified={false}
             />
             <InventoryBlock
               setValue={setValue}

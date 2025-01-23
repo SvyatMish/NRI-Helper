@@ -23,6 +23,7 @@ export const DNDapp = () => {
       {heroes.map((hero) => {
         return (
           <HeroForm
+            minified
             key={hero.fileName}
             id={hero.fileName}
             initialValues={hero.data}
