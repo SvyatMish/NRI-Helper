@@ -16,9 +16,10 @@ import { HpBlock } from "./hp-block.tsx";
 
 export const HeroForm: React.FC<{
   initialValues?: Character;
-  id: string;
+  id?: string;
   minified: boolean;
-}> = ({ initialValues, id, minified }) => {
+  folder: "heroes" | "npc";
+}> = ({ initialValues, id, minified, folder }) => {
   const [isOpen, setIsOpen] = useState(!minified);
   const { control, handleSubmit, watch, setValue } = useForm<Character>({
     defaultValues: getCharacterInitialValues(initialValues || {}),
@@ -28,7 +29,11 @@ export const HeroForm: React.FC<{
     if (!data.name) {
       alert("no name retard");
     }
-    await saveFile({ fileName: id, folder: "heroes", data });
+    await saveFile({
+      fileName: id || `${data.name}.json`,
+      folder,
+      data,
+    });
   };
 
   const name = watch("name");
