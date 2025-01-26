@@ -61,3 +61,15 @@ export interface Character {
 export type Attribute = keyof Character["attributes"];
 export type SetCharValue = UseFormSetValue<Character>;
 export type CharControl = Control<Character>;
+
+export interface ListCharacter {
+  fileName: string;
+  data: Character;
+}
+
+export type FolderType = "heroes" | "npc";
+
+export interface BattleCharacter extends ListCharacter {
+  folder: FolderType;
+  initiative?: number;
+}

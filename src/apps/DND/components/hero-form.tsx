@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Typography, Modal } from "@mui/material";
 
-import { Character, Attribute } from "../types/characters.ts";
+import { Character, Attribute, BattleCharacter } from "../types/characters.ts";
 import { RHInput } from "../../../components/inputs.tsx";
 import { saveFile } from "../../../utils/files.ts";
 import { AttributeInput } from "./attribute-input.tsx";
@@ -13,17 +13,40 @@ import { getCharacterInitialValues, getAttributeBonus } from "../utils";
 import { AttacksBlock } from "./attacks-block.tsx";
 import { InventoryBlock } from "./inventory-block.tsx";
 import { HpBlock } from "./hp-block.tsx";
+import { rollDice } from "../utils";
 
-export const HeroForm: React.FC<{
+export interface HeroFormProps {
   initialValues?: Character;
   id?: string;
   minified: boolean;
   folder: "heroes" | "npc";
-}> = ({ initialValues, id, minified, folder }) => {
+  toBattle?(_: BattleCharacter): void;
+}
+
+const ToBattleButton: React.FC<{
+  onClick: VoidFunction;
+  position: "left" | "right";
+}> = ({ onClick, position }) => {
+  const isRight = position === "right";
+  return (
+    <Button className={isRight ? "order-10" : "order-[0]"} onClick={onClick}>
+      {isRight ? "-->" : "<--"}
+    </Button>
+  );
+};
+
+export const HeroForm: React.FC<HeroFormProps> = ({
+  initialValues,
+  id,
+  minified,
+  folder,
+  toBattle,
+}) => {
   const [isOpen, setIsOpen] = useState(!minified);
-  const { control, handleSubmit, watch, setValue } = useForm<Character>({
-    defaultValues: getCharacterInitialValues(initialValues || {}),
-  });
+  const { control, handleSubmit, watch, setValue, getValues } =
+    useForm<Character>({
+      defaultValues: getCharacterInitialValues(initialValues || {}),
+    });
 
   const onSubmit = async (data: Character) => {
     if (!data.name) {
@@ -67,35 +90,51 @@ export const HeroForm: React.FC<{
   };
 
   const allHp = +hp.currentHp + +hp.tempHp;
+  const handleTobattle = () => {
+    toBattle?.({
+      folder,
+      data: getValues(),
+      fileName: id || "",
+      initiative: rollDice() + +getAttributeBonus(attributes.dexterity),
+    });
+  };
   if (!isOpen) {
     return (
-      <form
-        className="p-3 rounded border w-fit min-w-[400px] space-y-3 border-[#3b3534]"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="flex justify-between">
-          <Typography variant="h6">{name}</Typography>
-          <Button
-            onClick={() => {
-              setIsOpen(true);
-            }}
-            type="button"
-          >
-            Рзавенуть
-          </Button>
-        </div>
+      <div className="flex items-center">
+        {toBattle && (
+          <ToBattleButton
+            position={folder === "heroes" ? "right" : "left"}
+            onClick={handleTobattle}
+          />
+        )}
+        <form
+          className="p-3 rounded border w-fit min-w-[400px] space-y-3 border-[#3b3534]"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="flex justify-between">
+            <Typography variant="h6">{name}</Typography>
+            <Button
+              onClick={() => {
+                setIsOpen(true);
+              }}
+              type="button"
+            >
+              Рзавенуть
+            </Button>
+          </div>
 
-        <HpBlock control={control} allHp={allHp} maxHp={hp.maxHp} />
-        <AttacksBlock
-          attacks={attacks}
-          getAttackBonus={getAttackBonus}
-          control={control}
-          minified
-        />
-        <div className="flex justify-end">
-          <Button type="submit">Сохранить</Button>
-        </div>
-      </form>
+          <HpBlock control={control} allHp={allHp} maxHp={hp.maxHp} />
+          <AttacksBlock
+            attacks={attacks}
+            getAttackBonus={getAttackBonus}
+            control={control}
+            minified
+          />
+          <div className="flex justify-end">
+            <Button type="submit">Сохранить</Button>
+          </div>
+        </form>
+      </div>
     );
   }
 
