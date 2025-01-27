@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 
 import { getFiles } from "../../../utils";
 import { HeroForm } from "../components/hero-form";
+import { BattleHeroForm } from "../components/battle-hero-form";
 import { NewCharacterButton } from "../components/new-character-button";
 import { BattleCharacter, ListCharacter } from "../types";
 
@@ -25,7 +26,7 @@ export const BattalePage: React.FC = () => {
   const [battle, setBattle] = useState<BattleCharacter[]>([]);
 
   const toBattle = (data: BattleCharacter) => {
-    setBattle((current) => [...current, data]);
+    setBattle((current) => [...current, { ...data }]);
   };
 
   const getHeroes = async () => {
@@ -35,6 +36,14 @@ export const BattalePage: React.FC = () => {
   const getNpc = async () => {
     const response = await getFiles("npc");
     setNpc(response);
+  };
+  const handleChangeInitiative = (index: number, newInitiative: number) => {
+    setBattle((current) => {
+      const newitem = current[index];
+      newitem.initiative = newInitiative;
+      current.splice(index, 1, newitem);
+      return current;
+    });
   };
   useEffect(() => {
     getHeroes();
@@ -63,12 +72,16 @@ export const BattalePage: React.FC = () => {
         <Typography variant="h4">Бой</Typography>
         {battle
           .sort((el1, el2) => (el2.initiative || 0) - (el1.initiative || 0))
-          .map((hero) => {
+          .map((hero, index) => {
             return (
-              <HeroForm
+              <BattleHeroForm
+                onChangeInitiative={(newInitiative) => {
+                  handleChangeInitiative(index, newInitiative);
+                }}
+                initiative={hero.initiative}
                 folder={hero.folder}
                 minified
-                key={hero.fileName}
+                key={hero.fileName + index}
                 id={hero.fileName}
                 initialValues={hero.data}
               />
