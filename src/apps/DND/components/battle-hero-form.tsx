@@ -34,7 +34,7 @@ export const BattleHeroForm: React.FC<Props> = ({
         />
         <Button type="submit">Поменять</Button>
       </form>
-      {/*@ts-expect-error */}
+      {/*@ts-expect-error because ts is stupid */}
       <HeroForm minified {...props} />
     </div>
   );
