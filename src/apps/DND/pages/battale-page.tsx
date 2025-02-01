@@ -40,9 +40,9 @@ export const BattalePage: React.FC = () => {
   const handleChangeInitiative = (index: number, newInitiative: number) => {
     setBattle((current) => {
       const newitem = current[index];
-      newitem.initiative = newInitiative;
+      newitem.initiative = +newInitiative;
       current.splice(index, 1, newitem);
-      return current;
+      return [...current];
     });
   };
   useEffect(() => {
