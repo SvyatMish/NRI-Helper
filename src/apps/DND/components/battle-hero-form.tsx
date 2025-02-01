@@ -18,7 +18,7 @@ export const BattleHeroForm: React.FC<Props> = ({
   ...props
 }) => {
   const { handleSubmit, control } = useForm<Values>({
-    defaultValues: { initiative: props.initiative },
+    values: { initiative: props.initiative },
   });
   const onSubmit = (v: Values) => {
     onChangeInitiative(v.initiative || 0);

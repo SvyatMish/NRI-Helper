@@ -53,9 +53,9 @@ export const BattalePage: React.FC = () => {
     <div className="grid w-full gap-4 grid-cols-3 max-h-screen h-screen p-1">
       <CollumnContainer classname="space-y-2">
         <Typography variant="h4">Герои</Typography>
-        {heroes.map((hero) => {
+        {heroes.map((hero, index) => {
           return (
-            <div key={hero.fileName} className="flex items-center">
+            <div key={hero.fileName + index} className="flex items-center">
               <HeroForm
                 folder="heroes"
                 minified
@@ -75,13 +75,13 @@ export const BattalePage: React.FC = () => {
           .map((hero, index) => {
             return (
               <BattleHeroForm
+                key={hero.fileName + index}
                 onChangeInitiative={(newInitiative) => {
                   handleChangeInitiative(index, newInitiative);
                 }}
                 initiative={hero.initiative}
                 folder={hero.folder}
                 minified
-                key={hero.fileName + index}
                 id={hero.fileName}
                 initialValues={hero.data}
               />
@@ -90,9 +90,9 @@ export const BattalePage: React.FC = () => {
       </CollumnContainer>
       <CollumnContainer classname="space-y-2">
         <Typography variant="h4">Нипы</Typography>
-        {npc.map((hero) => {
+        {npc.map((hero, index) => {
           return (
-            <div key={hero.fileName} className="flex items-center">
+            <div key={hero.fileName + index} className="flex items-center">
               <HeroForm
                 folder="npc"
                 minified

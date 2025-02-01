@@ -90,12 +90,13 @@ export const HeroForm: React.FC<HeroFormProps> = ({
   };
 
   const allHp = +hp.currentHp + +hp.tempHp;
-  const handleTobattle = (rollResult: number) => {
+  const handleTobattle = () => {
+    const dice = rollDice();
     toBattle?.({
       folder,
       data: getValues(),
       fileName: id || "",
-      initiative: rollResult + +getAttributeBonus(attributes.dexterity),
+      initiative: dice + +getAttributeBonus(attributes.dexterity),
     });
   };
   if (!isOpen) {
@@ -104,9 +105,7 @@ export const HeroForm: React.FC<HeroFormProps> = ({
         {toBattle && (
           <ToBattleButton
             position={folder === "heroes" ? "right" : "left"}
-            onClick={() => {
-              handleTobattle(rollDice());
-            }}
+            onClick={handleTobattle}
           />
         )}
         <form
