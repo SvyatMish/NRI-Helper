@@ -1,4 +1,6 @@
-export type CustomComponent<T = unknown> = T & {
-  className?: string;
-  children?: React.ReactNode;
-};
+export type CustomComponent<T = unknown> = React.FC<
+  T & {
+    className?: string;
+    children?: React.ReactNode;
+  }
+>;
