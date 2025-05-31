@@ -6,6 +6,7 @@ import { HeroForm } from "../components/hero-form";
 import { BattleHeroForm } from "../components/battle-hero-form";
 import { NewCharacterButton } from "../components/new-character-button";
 import { BattleCharacter, ListCharacter } from "../types";
+import { ParchmentContainer } from "../../../components/ParchmentContainer";
 
 const CollumnContainer: React.FC<{
   children: React.ReactNode;
@@ -50,7 +51,7 @@ export const BattalePage: React.FC = () => {
     getNpc();
   }, []);
   return (
-    <div className="grid w-full gap-4 grid-cols-3 max-h-screen h-screen p-1">
+    <ParchmentContainer className="grid w-full gap-4 grid-cols-3 max-h-screen h-screen p-1">
       <CollumnContainer classname="space-y-2">
         <Typography variant="h4">Герои</Typography>
         {heroes.map((hero, index) => {
@@ -105,6 +106,6 @@ export const BattalePage: React.FC = () => {
         })}
         <NewCharacterButton folder="npc" />
       </CollumnContainer>
-    </div>
+    </ParchmentContainer>
   );
 };

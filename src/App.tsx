@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 
 import { VTMapp } from "./apps/VTM/vtm-app";
 import { DNDapp } from "./apps/DND/dnd-app";
+import { DocApp } from "./apps/DOC/doc-app";
 
 // main: "#3d392f",
 
@@ -37,11 +38,13 @@ function App() {
               <div className="h-screen w-full flex justify-center items-center space-x-2">
                 <Link to="/vtm">VTM</Link>
                 <Link to="/dnd">DND</Link>
+                <Link to="/doc">DOC</Link>
               </div>
             }
           />
           <Route path="/vtm" element={<VTMapp />} />
           <Route path="/dnd" element={<DNDapp />} />
+          <Route path="/doc" element={<DocApp />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

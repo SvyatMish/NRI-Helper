@@ -1,1 +1,0 @@
-{"name":"Goblin","level":1,"attributes":{"strength":10,"dexterity":10,"intelligence":10,"wisdom":10,"charisma":10,"constitution":10},"skillsCompetent":[],"skillsProficient":[],"spellAttribute":"intelligence","attackAttribute":"strength","hp":{"maxHp":0,"currentHp":"11","tempHp":0},"speed":30,"AC":10,"money":0,"savingThrowsProfficient":[],"attacks":[],"inventory":[]}
