@@ -1,15 +1,26 @@
-import { ParchmentContainer } from "../../components/ParchmentContainer";
+import { DocPage } from "./components/doc-page";
+
+import { Hr } from "../../components/hr";
+import { changeFavicon } from "../../utils";
+import { useEffect } from "react";
+
+const setupHeader = () => {
+  document.title = "DOC helper";
+  changeFavicon("/Dice_d20.svg");
+};
 
 export const DocApp = () => {
+  useEffect(() => {
+    setupHeader();
+  }, []);
   return (
-    <ParchmentContainer className="flex w-full min-h-screen kereru">
-      123123 Здарова Бродяга
-      <b>Здарова Бродяга</b>
-      <i>Здарова Бродяга</i>
-      <h1>Здарова Бродяга</h1>
-      <b>
-        <i>Plfhjdf</i>
-      </b>
-    </ParchmentContainer>
+    <>
+      <DocPage>
+        123123 Здарова Бродяга
+        <Hr></Hr>
+      </DocPage>
+      <DocPage> 123123 Здарова Бродяга</DocPage>
+      <DocPage> 123123 Здарова Бродяга</DocPage>
+    </>
   );
 };
