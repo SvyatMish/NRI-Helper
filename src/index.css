@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-body, #root, main {
-    min-height: 100vh;
+@font-face {
+  font-family: "Kereru";
+  src: url("fonts/Kereru.ttf");
+}
+
+@font-face {
+  font-family: "Kereru";
+  src: url("fonts/KereruBold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Kereru";
+  src: url("fonts/KereruItalic.otf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Kereru";
+  src: url("fonts/KereruBoldItalic.otf");
+  font-style: italic;
+  font-weight: bold;
+}
+
+.kereru {
+  font-family: "Kereru";
+}
+
+body,
+#root,
+main {
+  min-height: 100vh;
 }
