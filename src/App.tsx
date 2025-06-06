@@ -39,7 +39,6 @@ const Pages = () => {
   useEffect(() => {
     if (location.pathname === "/") {
       setupHeader();
-      alert("123");
     }
   }, [location.pathname]);
   return (
