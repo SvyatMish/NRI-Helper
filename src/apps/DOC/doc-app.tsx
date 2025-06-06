@@ -1,6 +1,7 @@
 import { changeFavicon } from "../../utils";
 import { useEffect } from "react";
-import { FourCoinsReport } from "./docs/four-coins-report";
+// import { FourCoinsReport } from "./docs/four-coins-report";
+import { FourCoinsReportNew } from "./docs/four-coins-report-new";
 
 const setupHeader = () => {
   document.title = "DOC helper";
@@ -11,5 +12,5 @@ export const DocApp = () => {
   useEffect(() => {
     setupHeader();
   }, []);
-  return <FourCoinsReport />;
+  return <FourCoinsReportNew />;
 };
