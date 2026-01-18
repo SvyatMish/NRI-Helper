@@ -80,6 +80,12 @@ export const RollResultRenderer: React.FC<
   rerollNormal,
 }) => {
   if (attackRoll) {
+    const finalDamage = Math.max(
+      (attackRoll.damage?.finalSuccesses || 0) -
+        (attackRoll.def?.finalSuccesses || 0),
+      0,
+    );
+    const halved = Math.floor(finalDamage / 2);
     return (
       <ResultContainer
         reroll={() => {
@@ -121,17 +127,18 @@ export const RollResultRenderer: React.FC<
                 )}
               </div>
             </div>
-            <Typography variant="h6">
-              Финальный урон:{" "}
-              {attackRoll.damage.finalSuccesses -
-                (attackRoll.def?.finalSuccesses || 0)}
-            </Typography>
+            <Typography variant="h6">Летальный урон: {finalDamage}</Typography>
+            <Typography variant="h6">Ударный урон: {halved}</Typography>
           </>
         )}
       </ResultContainer>
     );
   }
   if (rollAgainstRoll) {
+    const finalResult =
+      rollAgainstRoll.roll.finalSuccesses -
+      rollAgainstRoll.against.finalSuccesses;
+    const isSuccess = finalResult > 0;
     return (
       <ResultContainer
         reroll={() => {
@@ -156,11 +163,11 @@ export const RollResultRenderer: React.FC<
               : failTextClass
           }
         >
-          <Typography variant="h6">
-            Результат:{" "}
-            {rollAgainstRoll.roll.finalSuccesses -
-              rollAgainstRoll.against.finalSuccesses}
-          </Typography>
+          <div className={isSuccess ? successTextClass : failTextClass}>
+            <Typography variant="h6">
+              Результат: {isSuccess ? finalResult : "Провал"}
+            </Typography>
+          </div>
         </div>
       </ResultContainer>
     );
