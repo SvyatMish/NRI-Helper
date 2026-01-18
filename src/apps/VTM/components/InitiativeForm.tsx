@@ -1,14 +1,36 @@
 import { useState } from "react";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, MenuItem } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { RHInput } from "../../../components/inputs.tsx";
+import { RHInput, RHSelect } from "../../../components/inputs.tsx";
 import { rollMultiple } from "../utils/roll.ts";
+
+type HpType =
+  | "Здоров"
+  | "Пустяк"
+  | "Боль (-1)"
+  | "Легкие травмы (-1)"
+  | "Средние травмы (-2)"
+  | "Тяжелые травмы (-2)"
+  | "Увечья (-5)"
+  | "Нокаут";
+
+const hpTypes: HpType[] = [
+  "Здоров",
+  "Пустяк",
+  "Боль (-1)",
+  "Легкие травмы (-1)",
+  "Средние травмы (-2)",
+  "Тяжелые травмы (-2)",
+  "Увечья (-5)",
+  "Нокаут",
+];
 
 interface Actor {
   name: string;
   bonus: number;
   initiative: number;
   roll?: number;
+  hp: HpType;
 }
 
 interface NewActorFormValues {
@@ -36,16 +58,17 @@ interface FormValues {
 }
 
 export const InitiativeForm = () => {
-  const { control, handleSubmit } = useForm<FormValues>();
+  const { control, handleSubmit, setValue } = useForm<FormValues>();
 
   const [actors, setActors] = useState<Actor[]>([]);
 
   const onSubmit = (data: FormValues) => {
     const newActors = Object.keys(data).map((name) => {
-      const bonus = data[name].bonus || 0;
+      const actor = data[name];
+      const bonus = actor.bonus || 0;
       const roll = rollMultiple(1)[0];
       const initiative = +roll + +bonus;
-      return { name, bonus, initiative, roll };
+      return { name, bonus, initiative, roll, hp: actor.hp };
     });
     const sorted = newActors.sort((a, b) => a.initiative - b.initiative);
     const filtered = sorted.filter(
@@ -56,10 +79,14 @@ export const InitiativeForm = () => {
 
   const handleNewActor = ({ newName }: NewActorFormValues) => {
     if (newName && !actors.find((i) => i.name === newName)) {
-      setActors((actors) => [
-        { name: newName, bonus: 0, initiative: 0 },
-        ...actors,
-      ]);
+      const newActor: Actor = {
+        name: newName,
+        bonus: 0,
+        initiative: 0,
+        hp: "Здоров",
+      };
+      setActors((actors) => [{ ...newActor }, ...actors]);
+      setValue(newName, { ...newActor });
     }
   };
   return (
@@ -77,13 +104,29 @@ export const InitiativeForm = () => {
               className="flex justify-between items-center border p-2 rounded"
               key={actor.name + index + actor.bonus}
             >
-              <div className="flex items-baseline space-x-2">
+              <div className="flex items-end space-x-2">
                 <Typography variant="h6">{actor.name}</Typography>
-                <RHInput
-                  label="Бонус"
-                  control={control}
-                  name={`${actor.name}.bonus`}
-                />
+                <div className="max-w-[40px]">
+                  <RHInput
+                    label="Бонус"
+                    control={control}
+                    name={`${actor.name}.bonus`}
+                  />
+                </div>
+                <div className="">
+                  <RHSelect
+                    variant="standard"
+                    name={`${actor.name}.hp`}
+                    control={control}
+                    labelId={actor.name + "Здоровье"}
+                  >
+                    {hpTypes.map((hp) => (
+                      <MenuItem key={hp} value={hp}>
+                        {hp}
+                      </MenuItem>
+                    ))}
+                  </RHSelect>
+                </div>
                 {actor.roll && <div>ролл: {actor.roll}</div>}
               </div>
 

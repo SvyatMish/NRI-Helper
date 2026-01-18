@@ -47,7 +47,9 @@ export const RollForm: React.FC<{ initialValues?: RollFormValues }> = ({
           data.defDifficulty,
         );
         finalResult.damage = damageResult;
-        finalResult.def = defResult;
+        if (defResult.rolls.length > 0) {
+          finalResult.def = defResult;
+        }
       }
       setResults((prev) => [
         { attackRoll: finalResult, formValues: data },
