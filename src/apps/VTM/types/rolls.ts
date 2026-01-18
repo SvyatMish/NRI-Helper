@@ -7,6 +7,7 @@ export interface RollFormValues {
   damageDifficulty?: number;
   defAmount?: number;
   defDifficulty?: number;
+  rollName?: string;
 }
 
 export interface RollType {

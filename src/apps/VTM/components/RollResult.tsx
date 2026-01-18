@@ -92,6 +92,9 @@ export const RollResultRenderer: React.FC<
           rerollAttack(formValues);
         }}
       >
+        {formValues.rollName && (
+          <Typography variant="h4">{formValues.rollName}</Typography>
+        )}
         <div className="grid grid-cols-2 gap-2">
           <div>
             <Typography variant="h6">Атака</Typography>
@@ -145,6 +148,9 @@ export const RollResultRenderer: React.FC<
           rerollAgainst(formValues);
         }}
       >
+        {formValues.rollName && (
+          <Typography variant="h4">{formValues.rollName}</Typography>
+        )}
         <div className="grid grid-cols-2 gap-2">
           <div>
             <Typography variant="h6">Бросок 1</Typography>
@@ -179,6 +185,9 @@ export const RollResultRenderer: React.FC<
           rerollNormal(formValues);
         }}
       >
+        {formValues.rollName && (
+          <Typography variant="h4">{formValues.rollName}</Typography>
+        )}
         <RollResult result={normalRoll} />
       </ResultContainer>
     );

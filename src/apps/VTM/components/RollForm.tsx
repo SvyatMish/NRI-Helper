@@ -17,7 +17,7 @@ export const RollForm: React.FC<{ initialValues?: RollFormValues }> = ({
   const [results, setResults] = useState<RollResultRendererProps[]>([]);
   const [isAgainst, setIsAgainst] = useState(false);
   const [isAttack, setIsAttack] = useState(false);
-  const { control, handleSubmit } = useForm<RollFormValues>({
+  const { control, handleSubmit, setValue } = useForm<RollFormValues>({
     defaultValues: initialValues,
   });
 
@@ -95,6 +95,7 @@ export const RollForm: React.FC<{ initialValues?: RollFormValues }> = ({
     } else {
       handleNormalRoll(data);
     }
+    setValue("rollName", "");
   };
 
   const onClear = () => {
@@ -129,81 +130,85 @@ export const RollForm: React.FC<{ initialValues?: RollFormValues }> = ({
         <Button onClick={onClear}>Очистить результат</Button>
       </div>
       {isAttack && (
-        <form
-          className="flex items-end w-fit"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div>
-            <RHInput name="rollAmount" control={control} label="Атака" />
-            <RHInput name="difficulty" control={control} label="Сложность" />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <RHInput name="rollName" control={control} label="Название ролла" />
+          <div className="flex items-end w-fit">
+            <div>
+              <RHInput name="rollAmount" control={control} label="Атака" />
+              <RHInput name="difficulty" control={control} label="Сложность" />
+            </div>
+            <div>
+              <RHInput
+                name="rollAmountAgainst"
+                control={control}
+                label="Уклонение"
+              />
+              <RHInput
+                name="difficultyAgainst"
+                control={control}
+                label="Сложность"
+              />
+            </div>
+            <div>
+              <RHInput name="damageAmount" control={control} label="Урон" />
+              <RHInput
+                name="damageDifficulty"
+                control={control}
+                label="Сложность"
+              />
+            </div>
+            <div>
+              <RHInput name="defAmount" control={control} label="Защита" />
+              <RHInput
+                name="defDifficulty"
+                control={control}
+                label="Сложность"
+              />
+            </div>
+            <Button type="submit">Ролл</Button>
           </div>
-          <div>
-            <RHInput
-              name="rollAmountAgainst"
-              control={control}
-              label="Уклонение"
-            />
-            <RHInput
-              name="difficultyAgainst"
-              control={control}
-              label="Сложность"
-            />
-          </div>
-          <div>
-            <RHInput name="damageAmount" control={control} label="Урон" />
-            <RHInput
-              name="damageDifficulty"
-              control={control}
-              label="Сложность"
-            />
-          </div>
-          <div>
-            <RHInput name="defAmount" control={control} label="Защита" />
-            <RHInput name="defDifficulty" control={control} label="Сложность" />
-          </div>
-          <Button type="submit">Ролл</Button>
         </form>
       )}
       {isAgainst && !isAttack && (
-        <form
-          className="flex items-end w-fit"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <RHInput name="rollName" control={control} label="Название ролла" />
+          <div className="flex items-end w-fit">
+            <div>
+              <RHInput
+                name="rollAmount"
+                control={control}
+                label="Сколько роллить"
+              />
+              <RHInput name="difficulty" control={control} label="Сложность" />
+            </div>
+            <div>
+              <RHInput
+                name="rollAmountAgainst"
+                control={control}
+                label="Против"
+              />
+              <RHInput
+                name="difficultyAgainst"
+                control={control}
+                label="Сложность"
+              />
+            </div>
+            <Button type="submit">Ролл</Button>
+          </div>
+        </form>
+      )}
+      {!isAgainst && !isAttack && (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <RHInput name="rollName" control={control} label="Название ролла" />
+          <div className="flex items-end w-fit">
             <RHInput
               name="rollAmount"
               control={control}
               label="Сколько роллить"
             />
             <RHInput name="difficulty" control={control} label="Сложность" />
+            <Button type="submit">Ролл</Button>
           </div>
-          <div>
-            <RHInput
-              name="rollAmountAgainst"
-              control={control}
-              label="Против"
-            />
-            <RHInput
-              name="difficultyAgainst"
-              control={control}
-              label="Сложность"
-            />
-          </div>
-          <Button type="submit">Ролл</Button>
-        </form>
-      )}
-      {!isAgainst && !isAttack && (
-        <form
-          className="flex items-end w-fit"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <RHInput
-            name="rollAmount"
-            control={control}
-            label="Сколько роллить"
-          />
-          <RHInput name="difficulty" control={control} label="Сложность" />
-          <Button type="submit">Ролл</Button>
         </form>
       )}
       <div className="flex-1 overflow-auto max-w-[640px]">
