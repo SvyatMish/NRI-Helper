@@ -9,7 +9,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { VTMapp } from "./apps/VTM/vtm-app";
+import {
+  libRoute,
+  rollRoute,
+  VTMLib,
+  VTMRoll,
+  VTMRoutes,
+} from "./apps/VTM/vtm-app";
 import { DNDapp } from "./apps/DND/dnd-app";
 import { DocApp } from "./apps/DOC/doc-app";
 
@@ -23,14 +29,20 @@ const setupHeader = () => {
 
 // main: "#3d392f",
 
+// const darkTheme = createTheme({
+//   palette: {
+//     background: {
+//       default: "#dbd6d5",
+//     },
+//     text: {
+//       primary: "#3b3534",
+//     },
+//   },
+// });
+
 const darkTheme = createTheme({
   palette: {
-    background: {
-      default: "#dbd6d5",
-    },
-    text: {
-      primary: "#3b3534",
-    },
+    mode: "dark",
   },
 });
 
@@ -53,9 +65,11 @@ const Pages = () => {
           </div>
         }
       />
-      <Route path="/vtm" element={<VTMapp />} />
+      <Route path="/vtm" element={<VTMRoutes />} />
       <Route path="/dnd" element={<DNDapp />} />
       <Route path="/doc" element={<DocApp />} />
+      <Route path={rollRoute} element={<VTMRoll />} />
+      <Route path={libRoute} element={<VTMLib />} />
     </Routes>
   );
 };
