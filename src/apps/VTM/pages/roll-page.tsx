@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { RollForm } from "../components/RollForm";
+import { InitiativeForm } from "../components/InitiativeForm";
 
 export const RollPage: React.FC = () => {
   return (
@@ -17,6 +18,12 @@ export const RollPage: React.FC = () => {
             defDifficulty: 6,
           }}
         />
+      </div>
+      <div className="min-w-full p-6 box-border h-screen overflow-hidden flex flex-col">
+        <Typography className="mb-10" variant="h3">
+          Инициатива
+        </Typography>
+        <InitiativeForm />
       </div>
     </div>
   );
