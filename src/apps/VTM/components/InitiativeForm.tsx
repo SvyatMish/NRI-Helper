@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { RHInput } from "../../../components/inputs.tsx";
 import { rollMultiple } from "../utils/roll.ts";
@@ -11,13 +11,32 @@ interface Actor {
   roll?: number;
 }
 
+interface NewActorFormValues {
+  newName: string;
+}
+
+const NewActorForm: React.FC<{
+  onSubmit(data: NewActorFormValues): void;
+}> = ({ onSubmit }) => {
+  const { control, handleSubmit } = useForm<NewActorFormValues>();
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex space-x-2 items-baseline"
+    >
+      <RHInput control={control} name="newName" />
+      <Button type="submit">Add actor</Button>
+    </form>
+  );
+};
+
 interface FormValues {
   [key: string]: Actor;
 }
 
 export const InitiativeForm = () => {
   const { control, handleSubmit } = useForm<FormValues>();
-  const [newName, setNewName] = useState<string>("");
 
   const [actors, setActors] = useState<Actor[]>([]);
 
@@ -34,34 +53,24 @@ export const InitiativeForm = () => {
     );
     setActors(filtered);
   };
+
+  const handleNewActor = ({ newName }: NewActorFormValues) => {
+    if (newName && !actors.find((i) => i.name === newName)) {
+      setActors((actors) => [
+        { name: newName, bonus: 0, initiative: 0 },
+        ...actors,
+      ]);
+    }
+  };
   return (
     <div>
-      <div className="flex space-x-2 items-baseline">
-        <TextField
-          variant="standard"
-          name="newName"
-          value={newName}
-          onChange={(e) => {
-            setNewName(e.target.value);
-          }}
-        />
-        <Button
-          type="button"
-          onClick={() => {
-            if (newName && !actors.find((i) => i.name === newName)) {
-              setActors((actors) => [
-                { name: newName, bonus: 0, initiative: 0 },
-                ...actors,
-              ]);
-            }
-          }}
-        >
-          Add actor
-        </Button>
-      </div>
-
+      <NewActorForm onSubmit={handleNewActor} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Button type="submit">Roll!</Button>
+        <div className="flex w-full py-5 items-center justify-center">
+          <Button className="w-full" size="large" type="submit">
+            Roll!
+          </Button>
+        </div>
         {actors.map((actor, index) => {
           return (
             <div
