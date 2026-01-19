@@ -70,7 +70,7 @@ export const InitiativeForm = () => {
       const initiative = +roll + +bonus;
       return { name, bonus, initiative, roll, hp: actor.hp };
     });
-    const sorted = newActors.sort((a, b) => a.initiative - b.initiative);
+    const sorted = newActors.sort((a, b) => b.initiative - a.initiative);
     const filtered = sorted.filter(
       (i) => !!actors.find((a) => a.name === i.name),
     );
