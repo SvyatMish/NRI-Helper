@@ -4,85 +4,85 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./index.css";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import {BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import {
-  libRoute,
-  rollRoute,
-  VTMLib,
-  VTMRoll,
-  VTMRoutes,
+    libRoute,
+    rollRoute,
+    VTMLib,
+    VTMRoll,
+    VTMRoutes,
 } from "./apps/VTM/vtm-app";
-import { DNDapp } from "./apps/DND/dnd-app";
-import { DocApp } from "./apps/DOC/doc-app";
+import {DNDapp} from "./apps/DND/dnd-app";
+import {DocApp} from "./apps/DOC/doc-app";
 
-import { changeFavicon } from "./utils";
-import { useEffect } from "react";
+import {changeFavicon} from "./utils";
+import {useEffect} from "react";
 
 const setupHeader = () => {
-  document.title = "NRI helper";
-  changeFavicon("");
+    document.title = "NRI helper";
+    changeFavicon("");
 };
 
 // main: "#3d392f",
 
+const darkTheme = createTheme({
+    palette: {
+        background: {
+            default: "#dbd6d5",
+        },
+        text: {
+            primary: "#3b3534",
+        },
+    },
+});
+
 // const darkTheme = createTheme({
 //   palette: {
-//     background: {
-//       default: "#dbd6d5",
-//     },
-//     text: {
-//       primary: "#3b3534",
-//     },
+//     mode: "dark",
 //   },
 // });
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
-const Pages = () => {
-  const location = useLocation();
-  useEffect(() => {
-    if (location.pathname === "/") {
-      setupHeader();
-    }
-  }, [location.pathname]);
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="h-screen w-full flex justify-center items-center space-x-2">
-            <Link to="/vtm">VTM</Link>
-            <Link to="/dnd">DND</Link>
-            <Link to="/doc">DOC</Link>
-          </div>
+const Pages = () => {/*  */
+    const location = useLocation();
+    useEffect(() => {
+        if (location.pathname === "/") {
+            setupHeader();
         }
-      />
-      <Route path="/vtm" element={<VTMRoutes />} />
-      <Route path="/dnd" element={<DNDapp />} />
-      <Route path="/doc" element={<DocApp />} />
-      <Route path={rollRoute} element={<VTMRoll />} />
-      <Route path={libRoute} element={<VTMLib />} />
-    </Routes>
-  );
+    }, [location.pathname]);
+    return (
+        <Routes>
+            <Route
+                path="/"
+                element={
+                    <div className="h-screen w-full flex justify-center items-center space-x-2">
+                        <Link to="/vtm">VTM</Link>
+                        <Link to="/dnd">DND</Link>
+                        <Link to="/doc">DOC</Link>
+                    </div>
+                }
+            />
+            <Route path="/vtm" element={<VTMRoutes/>}/>
+            <Route path="/dnd" element={<DNDapp/>}/>
+            <Route path="/doc" element={<DocApp/>}/>
+            <Route path={rollRoute} element={<VTMRoll/>}/>
+            <Route path={libRoute} element={<VTMLib/>}/>
+        </Routes>
+    );
 };
 
 function App() {
-  return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <Pages />
-      </BrowserRouter>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider theme={darkTheme}>
+            <CssBaseline/>
+            <BrowserRouter>
+                <Pages/>
+            </BrowserRouter>
+        </ThemeProvider>
+    );
 }
 
 export default App;
