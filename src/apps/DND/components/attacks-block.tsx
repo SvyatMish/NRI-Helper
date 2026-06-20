@@ -21,6 +21,7 @@ export const AttacksBlock: React.FC<{
     append({ name: "", damage: "", attribute: undefined });
   };
 
+
   if (minified) {
     return (
       <>
